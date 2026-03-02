@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 type Tag = { id: string; name: string };
 type Note = {
@@ -153,7 +154,10 @@ export default function Home() {
     <main className="retro-shell">
       <section className="retro-card">
         <header className="retro-header">
-          <div className="retro-title">NOTE_KEEPER v1.0</div>
+          <div className="retro-header-top">
+            <div className="retro-title">NOTE_KEEPER v1.0</div>
+            <ThemeToggle />
+          </div>
           <div className="retro-subtitle">
             Create, edit, delete, and search notes. Filter by tag. Retro vibes included.
           </div>
@@ -162,8 +166,8 @@ export default function Home() {
         <div className="retro-grid">
           {/* LEFT: list/search */}
           <div>
-            <div className="retro-row" style={{ justifyContent: "space-between" }}>
-              <div className="retro-row" style={{ flex: 1 }}>
+            <div className="retro-row retro-row-space">
+              <div className="retro-row retro-row-grow">
                 <input
                   className="retro-input"
                   value={q}
@@ -177,8 +181,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="retro-row" style={{ marginTop: 10, justifyContent: "space-between" }}>
-              <div className="retro-row" style={{ flexWrap: "wrap" }}>
+            <div className="retro-row retro-row-space retro-mt-10">
+              <div className="retro-row retro-row-wrap">
                 <span className="retro-pill">tags</span>
                 <button
                   className="retro-btn"
@@ -213,11 +217,11 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="retro-subtitle" style={{ marginTop: 10 }}>
+            <div className="retro-subtitle retro-mt-10">
               {tagFilter ? `filter: ${tagFilter}` : "filter: none"} • results: {notes.length}
             </div>
 
-            <div className="retro-list" style={{ marginTop: 12 }}>
+            <div className="retro-list retro-mt-12">
               {notes.map((n) => (
                 <article
                   key={n.id}
@@ -245,7 +249,7 @@ export default function Home() {
 
           {/* RIGHT: editor */}
           <div>
-            <div className="retro-row" style={{ justifyContent: "space-between" }}>
+            <div className="retro-row retro-row-space">
               <span className="retro-pill">{selected ? `edit: ${selected.id}` : "new note"}</span>
               <div className="retro-row">
                 <button className="retro-btn retro-btn-primary" onClick={onSave} disabled={busy}>
@@ -257,7 +261,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ marginTop: 10 }}>
+            <div className="retro-mt-10">
               <label className="retro-subtitle" htmlFor="title">
                 title
               </label>
@@ -270,7 +274,7 @@ export default function Home() {
               />
             </div>
 
-            <div style={{ marginTop: 10 }}>
+            <div className="retro-mt-10">
               <label className="retro-subtitle" htmlFor="content">
                 content
               </label>
@@ -283,7 +287,7 @@ export default function Home() {
               />
             </div>
 
-            <div style={{ marginTop: 10 }}>
+            <div className="retro-mt-10">
               <label className="retro-subtitle" htmlFor="tags">
                 tags (comma-separated)
               </label>
@@ -298,7 +302,7 @@ export default function Home() {
 
             {error ? <div className="retro-error">ERROR: {error}</div> : null}
 
-            <div className="retro-subtitle" style={{ marginTop: 10 }}>
+            <div className="retro-subtitle retro-mt-10">
               Backend: {apiBaseUrl() ? apiBaseUrl() : "NEXT_PUBLIC_API_BASE_URL not set"}
             </div>
           </div>
